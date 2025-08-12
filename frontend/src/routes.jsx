@@ -45,7 +45,7 @@ export default function Router() {
         { path: configData.USER_GROUPS_URL, element: <Group /> },
         { path: configData.VIEW_GROUP_ROUTER_URL, element: <ViewGroup /> },
         { path: configData.EDIT_GROUP_ROUTER_URL, element: <EditGroup /> },
-        { path: configData.ABOUT_URL, element: <About /> },
+        { path: `${configData.DASHBOARD_HOME_URL}${configData.ABOUT_URL}`, element: <About /> },
         { path: configData.USER_PROFILE_URL, element: <Profile /> },
       ],
     },

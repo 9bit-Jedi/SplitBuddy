@@ -23,8 +23,6 @@ staticfiles
 
 *.ps1
 # *.json
-api_list.json
-
 *.pem
 
 
@@ -52,3 +50,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+GEMINI.md
+temp/
+mvp.md
+api_list.json

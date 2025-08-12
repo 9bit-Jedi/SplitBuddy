@@ -6,7 +6,31 @@ import {
   getGroupBudget,
   getGroupCategorySpending,
   getGroupLeaderboard,
+  getUserMonthlyExpenses,
+  getUserCategoryExpenses,
 } from '../api';
+
+export const getUserCategoryExpService = async (setAlert, setAlertMessage) => {
+  try {
+    const response = await getUserCategoryExpenses();
+    return response.data;
+  } catch (error) {
+    setAlert(true);
+    setAlertMessage(error.response?.data?.message || 'Failed to fetch category expenses');
+    window.scroll(0, 0);
+  }
+};
+
+export const getUserMonthlyExpService = async (setAlert, setAlertMessage) => {
+  try {
+    const response = await getUserMonthlyExpenses();
+    return response.data;
+  } catch (error) {
+    setAlert(true);
+    setAlertMessage(error.response?.data?.message || 'Failed to fetch monthly expenses');
+    window.scroll(0, 0);
+  }
+};
 
 export const createExpenseService = async (expenseData, setAlert, setAlertMessage) => {
   try {

@@ -2,7 +2,7 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { getRecentUserExpService } from '../../services/expenseServices'
+// import { getRecentUserExpService } from '../../services/expenseServices'
 import AlertBanner from '../AlertBanner'
 import ExpenseCard from '../expense/expenseCard'
 import Loading from '../loading'
@@ -12,16 +12,16 @@ export const RecentTransactions = () => {
     const [loading, setLoading] = useState(true)
     const [alert, setAlert] = useState(false)
     const [alertMessage, setAlertMessage] = useState()
-    const [recentExp, setRecentExp] = useState()
+    // const [recentExp, setRecentExp] = useState()
     const profile = JSON.parse(localStorage.getItem('profile'))
     useEffect(() => {
         const getRecentExp = async () => {
             setLoading(true)
-            const userIdJson = {
-                user: profile.emailId
-            }
-            const recent_exp = await getRecentUserExpService(userIdJson, setAlert, setAlertMessage)
-            recent_exp && setRecentExp(recent_exp?.data?.expense)
+            // const userIdJson = {
+            //     user: profile.emailId
+            // }
+            // const recent_exp = await getRecentUserExpService(userIdJson, setAlert, setAlertMessage)
+            // recent_exp && setRecentExp(recent_exp?.data?.expense)
             setLoading(false)
 
         }

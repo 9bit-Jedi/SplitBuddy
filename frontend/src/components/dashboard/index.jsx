@@ -6,6 +6,7 @@ import { getUserGroupsService } from "../../services/groupServices"
 import Loading from "../loading"
 import { CalenderExpenseGraph } from "./CalenderExpenseGraph"
 import { CategoryExpenseChart } from "./CategoryExpenseGraph"
+import { MonthlyExpenseGraph } from "./MonthlyExpenseGraph"
 import { EndMessage } from "./endMessage"
 import { GroupExpenseChart } from "./GroupExpenseChart"
 import { RecentTransactions } from "./RecentTransactions"
@@ -90,8 +91,11 @@ export default function Dashboard() {
                                     <Grid item xs={12}>
                                         <CalenderExpenseGraph />
                                     </Grid>
-                                    <Grid item xs={12} md={12}>
+                                    <Grid item xs={12} md={6}>
                                         <CategoryExpenseChart />
+                                    </Grid>
+                                     <Grid item xs={12} md={6}>
+                                        <MonthlyExpenseGraph />
                                     </Grid>
                                     {/* <Grid item xs={12} md={6}>
                                 <CategoryExpenseChart />

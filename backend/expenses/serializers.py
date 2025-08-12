@@ -45,3 +45,7 @@ class ExpenseDetailSerializer(ExpenseSerializer):
     class Meta(ExpenseSerializer.Meta):
         fields = ['id', 'group', 'description', 'amount', 'category', 'paid_by', 'splits', 'date_added']
         read_only_fields = ['id', 'paid_by', 'amount']
+
+class UserCategoryExpenseSerializer(serializers.Serializer):
+    category = serializers.CharField()
+    total = serializers.DecimalField(max_digits=10, decimal_places=2)

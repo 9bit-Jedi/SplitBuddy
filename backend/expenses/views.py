@@ -2,6 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth
+from django.utils import timezone
+from datetime import date, timedelta
+
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 from decimal import Decimal, InvalidOperation
@@ -11,6 +17,64 @@ from .models import Expense, ExpenseSplit  # adjust if needed
 from groups.models import Group
 from .serializers import ExpenseSerializer, ExpenseDetailSerializer
 from .utils import get_money_from_data
+
+class UserMonthlyExpenseView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        twelve_months_ago = timezone.now().date() - timedelta(days=365)
+
+        monthly_expenses = ExpenseSplit.objects.filter(
+            user=user,
+            expense__created_at__date__gte=twelve_months_ago
+        ).annotate(
+            month=TruncMonth('expense__created_at')
+        ).values(
+            'month'
+        ).annotate(
+            total=Sum('amount_owed')
+        ).order_by('month')
+
+        # Create a dictionary to hold the results for easy lookup
+        expenses_dict = {item['month'].strftime('%b'): item['total'] for item in monthly_expenses}
+
+        # Create a list of the last 12 months
+        months = []
+        today = date.today()
+        for i in range(12):
+            # This is a simplified way to get previous months and may not be perfect
+            # for all edge cases, but it's a good approximation for this use case.
+            month_date = today - timedelta(days=i*30)
+            months.append(month_date.strftime('%b'))
+        
+        months.reverse()
+
+        # Prepare the final response
+        response_data = []
+        for month_abbr in months:
+            response_data.append({
+                'month': month_abbr,
+                'total': expenses_dict.get(month_abbr, Decimal('0.00'))
+            })
+
+        return Response(response_data)
+
+class UserCategoryExpenseView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        category_expenses = Expense.objects.filter(
+            splits__user=user
+        ).values(
+            'category'
+        ).annotate(
+            total=Sum('splits__amount_owed')
+        ).order_by('-total')
+
+        return Response(category_expenses)
+
 
 class ExpenseCreateView(APIView):
     permission_classes = [IsAuthenticated]

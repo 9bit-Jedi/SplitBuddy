@@ -53,6 +53,8 @@ export const createExpense = (expenseData) => API.post('/api/expenses/', expense
 export const settleExpense = (expenseId) => API.post(`/api/expenses/${expenseId}/settle/`);
 export const getExpenseDetails = (expenseId) => API.get(`/api/expenses/${expenseId}/`);
 export const getGroupExpenses = (groupId) => API.get(`/api/expenses/group/${groupId}/`);
+export const getUserMonthlyExpenses = () => API.get('/api/expenses/user/monthly-expenses/');
+export const getUserCategoryExpenses = () => API.get('/api/expenses/user/category-expenses/');
 
 // Analytics endpoints
 export const getGroupBudget = (groupId) => API.get(`/api/analytics/${groupId}/budget/`);

@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 import 'chart.js/auto'
 import { useEffect, useState } from "react";
 import Loading from "../loading";
-import { getUserDailyExpService, getUserMonthlyExpService } from "../../services/expenseServices";
+import { getUserMonthlyExpService } from "../../services/expenseServices";
 import { monthNamesMMM } from "../../utils/helper";
 import useResponsive from "../../theme/hooks/useResponsive";
 import AlertBanner from "../AlertBanner";
@@ -16,7 +16,6 @@ export const CalenderExpenseGraph = () => {
     const [alert, setAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [userMonthlyExp, setUserMonthlyExp] = useState()
-    const [userDailyExp, setUserDailyExp] = useState()
 
     const toggleMonthlyView = () => {
         setMonthlyView(!montlyView)
@@ -66,8 +65,6 @@ export const CalenderExpenseGraph = () => {
         }
         const response_group_monthly = await getUserMonthlyExpService(userIdJson, setAlert, setAlertMessage)
         setUserMonthlyExp(response_group_monthly.data.data)
-        const response_group_daily = await getUserDailyExpService(userIdJson, setAlert, setAlertMessage)
-        setUserDailyExp(response_group_daily.data.data)
         setLoading(false)
 
     }   
