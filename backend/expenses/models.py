@@ -5,17 +5,12 @@ from groups.models import Group
 from djmoney.models.fields import MoneyField
 
 class Expense(models.Model):
-    CATEGORY_CHOICES = [
-        ('food', 'Food'),
-        ('travel', 'Travel'),
-        ('misc', 'Miscellaneous'),
-    ]
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="expenses")
     description = models.CharField(max_length=255, blank=True, default="")
     amount = MoneyField(max_digits=10, decimal_places=2, default_currency='INR')
     paid_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="expenses_paid")
     date_added = models.DateTimeField(default=timezone.now)
-    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default="misc")
+    category = models.CharField(max_length=50, default="General")
 
     def __str__(self):
         return f"{self.description} - {self.amount}"

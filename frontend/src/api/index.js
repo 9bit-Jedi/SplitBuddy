@@ -32,33 +32,34 @@ API.interceptors.request.use(async (req) => {
 });
 
 // User endpoints
-export const register = (formData) => API.post('/api/users/register/', formData);
-export const login = (formData) => API.post('/api/users/login/', formData);
-export const refreshToken = (formData) => API.post('/api/users/token/refresh/', formData);
-export const getCurrentUser = () => API.get('/api/users/me/');
-export const updateCurrentUser = (formData) => API.put('/api/users/me/', formData);
+export const register = (formData) => API.post('/users/register/', formData);
+export const login = (formData) => API.post('/users/login/', formData);
+export const refreshToken = (formData) => API.post('/users/token/refresh/', formData);
+export const getCurrentUser = () => API.get('/users/me/');
+export const updateCurrentUser = (formData) => API.put('/users/me/', formData);
 
 // Group endpoints
-export const getUserGroups = () => API.get('/api/groups/');
-export const createGroup = (formData) => API.post('/api/groups/', formData);
-export const getGroupDetails = (groupId) => API.get(`/api/groups/${groupId}/`);
-export const addGroupMember = (groupId, memberData) => API.post(`/api/groups/${groupId}/members/`, memberData);
-export const updateGroupMember = (groupId, memberData) => API.put(`/api/groups/${groupId}/members/`, memberData);
-export const removeGroupMember = (groupId, memberData) => API.delete(`/api/groups/${groupId}/members/`, { data: memberData });
-export const getSimplifiedDebts = (groupId) => API.get(`/api/groups/${groupId}/debts/simplify/`);
-export const createSettlement = (groupId, settlementData) => API.post(`/api/groups/${groupId}/settlements/`, settlementData);
+export const getUserGroups = () => API.get('/groups/');
+export const createGroup = (formData) => API.post('/groups/', formData);
+export const getGroupDetails = (groupId) => API.get(`/groups/${groupId}/`);
+export const addGroupMember = (groupId, memberData) => API.post(`/groups/${groupId}/members/`, memberData);
+export const updateGroupMember = (groupId, memberData) => API.put(`/groups/${groupId}/members/`, memberData);
+export const removeGroupMember = (groupId, memberData) => API.delete(`/groups/${groupId}/members/`, { data: memberData });
+export const getSimplifiedDebts = (groupId) => API.get(`/groups/${groupId}/debts/simplify/`);
+export const createSettlement = (groupId, settlementData) => API.post(`/groups/${groupId}/settlements/`, settlementData);
 
 // Expense endpoints
-export const createExpense = (expenseData) => API.post('/api/expenses/', expenseData);
-export const settleExpense = (expenseId) => API.post(`/api/expenses/${expenseId}/settle/`);
-export const getExpenseDetails = (expenseId) => API.get(`/api/expenses/${expenseId}/`);
-export const getGroupExpenses = (groupId) => API.get(`/api/expenses/group/${groupId}/`);
-export const getUserMonthlyExpenses = () => API.get('/api/expenses/user/monthly-expenses/');
-export const getUserCategoryExpenses = () => API.get('/api/expenses/user/category-expenses/');
+export const createExpense = (expenseData) => API.post('/expenses/', expenseData);
+export const settleExpense = (expenseId) => API.post(`/expenses/${expenseId}/settle/`);
+export const getExpenseDetails = (expenseId) => API.get(`/expenses/${expenseId}/`);
+export const getGroupExpenses = (groupId) => API.get(`/expenses/group/${groupId}/`);
+export const getUserDailyExpenses = () => API.get('/expenses/user/daily-expenses/');
+export const getUserMonthlyExpenses = () => API.get('/expenses/user/monthly-expenses/');
+export const getUserCategoryExpenses = () => API.get('/expenses/user/category-expenses/');
 
 // Analytics endpoints
-export const getGroupBudget = (groupId) => API.get(`/api/analytics/${groupId}/budget/`);
-export const getGroupCategorySpending = (groupId) => API.get(`/api/analytics/${groupId}/categories/`);
-export const getGroupLeaderboard = (groupId) => API.get(`/api/analytics/${groupId}/leaderboard/`);
+export const getGroupBudget = (groupId) => API.get(`/analytics/${groupId}/budget/`);
+export const getGroupCategorySpending = (groupId) => API.get(`/analytics/${groupId}/categories/`);
+export const getGroupLeaderboard = (groupId) => API.get(`/analytics/${groupId}/leaderboard/`);
 
 export default API;

@@ -6,11 +6,13 @@ from .views import (
     ExpenseSettleView,
     UserMonthlyExpenseView,
     UserCategoryExpenseView,
+    UserDailyExpenseView,
 )
 
 urlpatterns = [
     path('', ExpenseCreateView.as_view(), name='expense-create'),                                     # POST /api/expenses/
     path('user/monthly-expenses/', UserMonthlyExpenseView.as_view(), name='user-monthly-expenses'),
+    path('user/daily-expenses/', UserDailyExpenseView.as_view(), name='user-daily-expenses'),
     path('user/category-expenses/', UserCategoryExpenseView.as_view(), name='user-category-expenses'),
     path('<int:pk>/settle/', ExpenseSettleView.as_view(), name='expense-settle'),                   # POST settle
     path('<int:pk>/', ExpenseDetailView.as_view(), name='expense-detail'),                          # GET expense detail

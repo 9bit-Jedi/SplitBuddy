@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Box, Button, Card, CardContent, Grid, Link, Stack, Typography } from '@mui/material'
+import { Box, Grid, Link, Typography } from '@mui/material'
 
 import React, { useState, useEffect } from 'react'
 import { getUserGroupsService } from '../../services/groupServices';
@@ -8,41 +8,17 @@ import dataConfig from '../../config.json';
 import { Link as RouterLink } from 'react-router-dom';
 import MiniGroupCard from '../groups/miniGroupCard';
 
-
-
-const CategoryStyle = styled('div')(({ theme }) => ({
-    zIndex: 9,
-    width: 35,
-    height: 32,
-    position: 'absolute',
-    left: 22,
-    top: 130,
-    background: "red",
-    borderRadius: 50
-  }));
-  
-const profile = JSON.parse(localStorage.getItem('profile'))
-const emailId = profile?.emailId
-
-
 const FavouriteGroups = () => {
     const [loading, setLoading] = useState(false)
-    const [group, setGroup] = useState()
-    const [colors] = useState(['primary', 'secondary', 'error', 'warning', 'info', 'success']);
+    const [groups, setGroups] = useState([])
 
-    const checkActive = (split) => {
-        for (var key in split) {
-          if (split.hasOwnProperty(key)) {
-            if (Math.round(split[key]) != 0)
-              return true
-          }
-        }
-    }
     useEffect(() => {
         const getUserFavGroups = async () => {
           setLoading(true)
-          const response_group = await getUserGroupsService(profile)
-          setGroup(response_group.data.groups)
+          const response_groups = await getUserGroupsService()
+          if(response_groups){
+            setGroups(response_groups)
+          }
           setLoading(false)          
         }
         getUserFavGroups()
@@ -60,22 +36,17 @@ const FavouriteGroups = () => {
                 </Typography>
                 <Grid container spacing={4}>
 
-                {group?.map(myGroup => {
+                {groups?.map(myGroup => {
                     return (
-                        <Grid item xs={12} md={12} lg={6} key={myGroup?._id}>
+                        <Grid item xs={12} md={12} lg={6} key={myGroup?.id}>
                             <Link component={RouterLink}
-                                to={dataConfig.VIEW_GROUP_URL + myGroup?._id}
+                                to={dataConfig.VIEW_GROUP_URL + myGroup?.id}
                                 sx={{ textDecoration: 'none' }}
                             >
                                 <MiniGroupCard
-                                    groupId={myGroup?._id}
-                                    title={myGroup?.groupName}
-                                    description={myGroup?.groupDescription}
-                                    groupMembers={myGroup?.groupMembers}
-                                    share={myGroup?.split[0][emailId]}
-                                    currencyType={myGroup?.groupCurrency}
-                                    groupCategory={myGroup?.groupCategory}
-                                    isGroupActive={checkActive(myGroup?.split[0])}
+                                    title={myGroup?.name}
+                                    share={myGroup?.user_balance}
+                                    currencyType={myGroup?.currency}
                                     color='info' />
                             </Link>
                         </Grid>

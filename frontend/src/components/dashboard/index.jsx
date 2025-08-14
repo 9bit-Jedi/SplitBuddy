@@ -109,7 +109,7 @@ export default function Dashboard() {
                         <Grid item xs={12} md={4}>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
-                                    <RecentTransactions />
+                                    {/* <RecentTransactions /> */}
                                 </Grid>
                                 <Grid item xs={12}>
                                     <GroupExpenseChart />

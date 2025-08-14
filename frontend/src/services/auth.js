@@ -18,6 +18,9 @@ export const loginService = async (formData, setAlert, setAlertMessage) => {
 export const registerService = async (formData, setAlert, setAlertMessage) => {
     try {
         const response = await register(formData);
+        if (response.data.access) {
+            localStorage.setItem('profile', JSON.stringify(response.data));
+        }
         return response;
     } catch (error) {
         setAlert(true);

@@ -22,7 +22,7 @@ class GroupViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # Use new related_name 'member_groups' from User -> Group
-        return self.request.user.member_groups.prefetch_related('members').distinct()
+        return self.request.user.member_groups.prefetch_related('members', 'expenses__splits').distinct()
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -46,12 +46,12 @@ class GroupMembersView(APIView):
     def post(self, request, pk):
         """
         Add a member to the group.
-        Expects user_id in JSON body.
+        Expects username in JSON body.
         """
         group = get_object_or_404(Group, id=pk, members=request.user)
         serializer = AddMemberSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = get_object_or_404(User, id=serializer.validated_data['user_id'])
+        user = get_object_or_404(User, username=serializer.validated_data['username'])
         if group.members.filter(id=user.id).exists():
             return Response({'detail': 'User already a member'}, status=status.HTTP_400_BAD_REQUEST)
         if user == request.user:
@@ -67,12 +67,12 @@ class GroupMembersView(APIView):
     def put(self, request, pk):
         """
         Update a member's role in the group.
-        Expects user_id and role in JSON body.
+        Expects username and role in JSON body.
         """
         group = get_object_or_404(Group, id=pk, members=request.user)
         serializer = AddMemberSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = get_object_or_404(User, id=serializer.validated_data['user_id'])
+        user = get_object_or_404(User, username=serializer.validated_data['username'])
         if not group.members.filter(id=user.id).exists():
             return Response({'detail': 'User not a member'}, status=status.HTTP_404_NOT_FOUND)
         
@@ -85,7 +85,7 @@ class GroupMembersView(APIView):
         membership.save()
         response = {
             'detail': 'Member role updated',
-            'user_id': user.id,
+            'username': user.username,
             'role': membership.role,
             'group': GroupDetailSerializer(group).data
         }
@@ -94,16 +94,16 @@ class GroupMembersView(APIView):
     def delete(self, request, pk):
         """
         Remove a member from the group.
-        user_id can be supplied in JSON body or as query param.
+        username can be supplied in JSON body or as query param.
         Cannot remove yourself.
         """
         group = get_object_or_404(Group, id=pk, members=request.user)
-        user_id = request.data.get('user_id') or request.query_params.get('user_id')
-        if not user_id:
-            return Response({'detail': 'user_id required'}, status=status.HTTP_400_BAD_REQUEST)
-        if user_id == request.user.id:
+        username = request.data.get('username') or request.query_params.get('username')
+        if not username:
+            return Response({'detail': 'username required'}, status=status.HTTP_400_BAD_REQUEST)
+        if username == request.user.username:
             return Response({'detail': 'Cannot remove yourself'}, status=status.HTTP_400_BAD_REQUEST)
-        user = get_object_or_404(User, id=user_id)
+        user = get_object_or_404(User, username=username)
         if not group.members.filter(id=user.id).exists():
             return Response({'detail': 'User not a member'}, status=status.HTTP_404_NOT_FOUND)
         group.members.remove(user)

@@ -32,6 +32,22 @@ DEBUG = os.getenv("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [h for h in os.getenv("ALLOWED_HOSTS", "").split(",") if h]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Frontend URL
+    "http://127.0.0.1:5173",  # Alternative localhost
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
+    "x-csrftoken",
+    "accept",
+    "origin",
+]
 
 # Application definition
 
@@ -48,6 +64,7 @@ INSTALLED_APPS = [
     'storages',
     'debug_toolbar',
     'django_extensions',
+    "corsheaders",
     # Core apps
     'users',
     'groups',
@@ -64,6 +81,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'splitbuddy.urls'

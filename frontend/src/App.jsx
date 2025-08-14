@@ -1,12 +1,10 @@
-// theme
-import ThemeProvider from './theme/index.jsx';
-import Router from './routes.jsx'
-
+import ThemeProvider from './theme/ThemeProvider';
+import Main from './Main';
 
 function App() {
   return (
     <ThemeProvider>
-      <Router />
+      <Main />
     </ThemeProvider>
   );
 }

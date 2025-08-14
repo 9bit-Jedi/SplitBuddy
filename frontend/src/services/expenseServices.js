@@ -6,6 +6,7 @@ import {
   getGroupBudget,
   getGroupCategorySpending,
   getGroupLeaderboard,
+  getUserDailyExpenses,
   getUserMonthlyExpenses,
   getUserCategoryExpenses,
 } from '../api';
@@ -17,6 +18,17 @@ export const getUserCategoryExpService = async (setAlert, setAlertMessage) => {
   } catch (error) {
     setAlert(true);
     setAlertMessage(error.response?.data?.message || 'Failed to fetch category expenses');
+    window.scroll(0, 0);
+  }
+};
+
+export const getUserDailyExpService = async (setAlert, setAlertMessage) => {
+  try {
+    const response = await getUserDailyExpenses();
+    return response.data;
+  } catch (error) {
+    setAlert(true);
+    setAlertMessage(error.response?.data?.message || 'Failed to fetch daily expenses');
     window.scroll(0, 0);
   }
 };

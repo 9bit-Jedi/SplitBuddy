@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 export const UpdateMember = () => {
   const { groupId } = useParams();
   const [values, setValues] = useState({
-    user_id: '',
+    username: '',
     role: '',
   });
   const [alert, setAlert] = useState(false);
@@ -50,11 +50,11 @@ export const UpdateMember = () => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label="User ID"
-                name="user_id"
+                label="Username"
+                name="username"
                 onChange={handleChange}
                 required
-                value={values.user_id}
+                value={values.username}
                 variant="outlined"
               />
             </Grid>

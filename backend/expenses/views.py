@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from django.db.models import Sum
-from django.db.models.functions import TruncMonth
+from django.db.models.functions import TruncMonth, TruncDay
 from django.utils import timezone
 from datetime import date, timedelta
 
@@ -13,7 +13,7 @@ from django.db import transaction
 from decimal import Decimal, InvalidOperation
 from collections import defaultdict
 
-from .models import Expense, ExpenseSplit  # adjust if needed
+from .models import Expense, ExpenseSplit
 from groups.models import Group
 from .serializers import ExpenseSerializer, ExpenseDetailSerializer
 from .utils import get_money_from_data
@@ -25,11 +25,17 @@ class UserMonthlyExpenseView(APIView):
         user = request.user
         twelve_months_ago = timezone.now().date() - timedelta(days=365)
 
+        # First get expense IDs that match the date criteria
+        expense_ids = Expense.objects.filter(
+            date_added__gte=twelve_months_ago
+        ).values_list('id', flat=True)
+
+        # Then filter ExpenseSplits using those IDs
         monthly_expenses = ExpenseSplit.objects.filter(
             user=user,
-            expense__created_at__date__gte=twelve_months_ago
+            expense__id__in=expense_ids
         ).annotate(
-            month=TruncMonth('expense__created_at')
+            month=TruncMonth('expense__date_added')
         ).values(
             'month'
         ).annotate(
@@ -43,8 +49,6 @@ class UserMonthlyExpenseView(APIView):
         months = []
         today = date.today()
         for i in range(12):
-            # This is a simplified way to get previous months and may not be perfect
-            # for all edge cases, but it's a good approximation for this use case.
             month_date = today - timedelta(days=i*30)
             months.append(month_date.strftime('%b'))
         
@@ -75,65 +79,45 @@ class UserCategoryExpenseView(APIView):
 
         return Response(category_expenses)
 
+class UserDailyExpenseView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        thirty_days_ago = timezone.now().date() - timedelta(days=30)
+
+        daily_expenses = ExpenseSplit.objects.filter(
+            user=user,
+            expense__date_added__gte=thirty_days_ago
+        ).annotate(
+            day=TruncDay('expense__date_added')
+        ).values('day').annotate(
+            total=Sum('amount_owed')
+        ).order_by('day')
+
+        response_data = []
+        for item in daily_expenses:
+            expense_date = item['day'].date()
+            response_data.append({
+                '_id': {
+                    'month': expense_date.month,
+                    'date': expense_date.day
+                },
+                'amount': item['total']
+            })
+
+        return Response(response_data)
+
 
 class ExpenseCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
-    @transaction.atomic
     def post(self, request):
-        """
-        Expected payload:
-        {
-          "group": <group_id>,
-          "description": "...",     # optional
-          "amount": 100.00,
-          "currency": "INR",
-          "category": "travel",
-          "paid_by": "<optional user uuid>",
-          "splits": [
-              {"user_id": "<uuid>", "amount": "40.00"},
-              {"user_id": "<uuid>", "amount": "60.00"}
-          ]
-        }
-        """
-        data = request.data
-        group_id = data.get('group')
-        group = get_object_or_404(Group, id=group_id, members=request.user)
-        paid_by = data.get('paid_by') or str(request.user.id)
-        
-        # Validate payer membership
-        if not group.members.filter(id=paid_by).exists():
-            return Response({'detail': 'paid_by not in group'}, status=status.HTTP_400_BAD_REQUEST)
-
-        data['amount'] = get_money_from_data(data['amount'], data['currency'], allow_zero=False)
-
-        # Use serializer for base fields if available
-        serializer = ExpenseSerializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        
-        expense = serializer.save(paid_by_id=paid_by, group=group)
-        splits = data.get('splits', [])
-        if not splits:
-            # Equal split among all members if not provided
-            member_ids = list(group.members.values_list('id', flat=True))
-            per = (expense.amount / len(member_ids)) if member_ids else Decimal('0')
-            for uid in member_ids:
-                ExpenseSplit.objects.create(expense=expense, user_id=uid, amount_owed=per)
-        else:
-            total_split = Decimal('0')
-            for s in splits:
-                try:
-                    amt = Decimal(str(s.get('amount')))
-                except (InvalidOperation, TypeError):
-                    return Response({'detail': 'Invalid split amount'}, status=status.HTTP_400_BAD_REQUEST)
-                uid = s.get('user_id')
-                if not group.members.filter(id=uid).exists():
-                    return Response({'detail': f'user {uid} not in group'}, status=status.HTTP_400_BAD_REQUEST)
-                total_split += amt
-                ExpenseSplit.objects.create(expense=expense, user_id=uid, amount_owed=amt)
-            if total_split != expense.amount:
-                raise transaction.TransactionManagementError("Split total mismatch")
-        return Response(ExpenseDetailSerializer(expense).data, status=status.HTTP_201_CREATED)
+        serializer = ExpenseSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save(paid_by=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GroupExpenseListView(APIView):
     permission_classes = [IsAuthenticated]
