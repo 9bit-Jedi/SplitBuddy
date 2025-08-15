@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Link } from '@mui/material';
+import { Container, Grid, Typography, Link, Card, alpha } from '@mui/material';
+import Iconify from "../Iconify";
 import { Link as RouterLink } from 'react-router-dom';
 import { getUserGroupsService } from '../../services/groupServices';
 import Loading from '../loading';
@@ -50,7 +51,7 @@ export default function Group() {
                   title={group.name}
                   description={group.description}
                   groupMembers={group.members}
-                  share={group.user_balance}
+                  share={group.user_balance.amount}
                   currencyType={group.currency}
                   groupCategory={group.category}
                   isGroupActive={parseFloat(group.user_balance) !== 0.0}
@@ -59,6 +60,47 @@ export default function Group() {
               </Link>
             </Grid>
           ))}
+          <Grid item xs={12} md={6} lg={6}>
+            <Link component={RouterLink}
+              to={configData.CREATE_GROUP_URL}
+              sx={{ textDecoration: 'none' }}
+            >
+              <Card
+                sx={{
+                  p: 0,
+                  boxShadow: 10,
+                  borderRadius: 2,
+                  backgroundImage: (theme) =>
+                    `linear-gradient(169deg, ${alpha(theme.palette['primary'].light, 0.6)} 0%, ${alpha(
+                      theme.palette['primary'].darker,
+                      0.55
+                    )} 70%)`,
+                  minHeight: 310
+                }}
+              >
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  minHeight={310}
+                >
+                  <Grid item xs={'auto'} md={'auto'} >
+                    <Iconify icon="fluent:people-team-add-20-filled" color={'#fff'} sx={{
+                      width: '100%',
+                      height: 50
+                    }} />
+                    <Typography variant="h4" fontSize={28} color='#fff' sx={{
+                      width: '100%', textDecoration: 'none'
+                    }}>
+                      Create new group!
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Link>
+          </Grid>
+          
         </Grid>
       )}
     </Container>

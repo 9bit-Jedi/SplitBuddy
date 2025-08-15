@@ -55,43 +55,32 @@ export default function Dashboard() {
         <Loading />
       ) : (
         <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
-            <Grid container spacing={5}>
-              <Grid item xs={12}>
-                <WelcomeMessage />
-              </Grid>
+          <Grid item xs={12}>
+            <WelcomeMessage />
+          </Grid>
 
-              {newUser ? (
-                <Grid item xs={12}>
-                  <Grid
-                    container
-                    direction="column"
-                    style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      textAlign: 'center',
-                      minHeight: 'calc(50vh - 200px )',
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      fontSize={18}
-                      textAlign={'center'}
-                    >
-                      Seems to be new here! Create your first group and add
-                      expenses <br />
-                      <Link
-                        component={RouterLink}
-                        to={configData.CREATE_GROUP_URL}
-                      >
-                        Create Group
-                      </Link>
-                    </Typography>
-                  </Grid>
-                </Grid>
-              ) : (
-                <>
+          {newUser ? (
+            <Grid item xs={12} sx={{ textAlign: 'center', mt: 5 }}>
+                <img src="/static/illustrations/illustration_empty_content.svg" alt="no groups" style={{ height: 240, margin: 'auto' }} />
+                <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>
+                    No groups yet!
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    Get started by creating a new group.
+                </Typography>
+                <Button
+                    variant="contained"
+                    component={RouterLink}
+                    to={configData.CREATE_GROUP_URL}
+                    sx={{ mt: 3 }}
+                >
+                    Create Group
+                </Button>
+            </Grid>
+          ) : (
+            <>
+              <Grid item xs={12} md={8}>
+                <Grid container spacing={5}>
                   <Grid item xs={12}>
                     <SummaryCards userTotalExp={userExp?.total} />
                   </Grid>
@@ -107,27 +96,22 @@ export default function Dashboard() {
                   <Grid item xs={12} md={6}>
                     <MonthlyExpenseGraph />
                   </Grid>
-                  {/* <Grid item xs={12} md={6}>
-                                <CategoryExpenseChart />
-                            </Grid> */}
-                </>
-              )}
-            </Grid>
-          </Grid>
-          {!newUser && (
-            <Grid item xs={12} md={4}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  {/* <RecentTransactions /> */}
-                </Grid>
-                <Grid item xs={12}>
-                  <GroupExpenseChart />
-                </Grid>
-                <Grid item md={12} xs={0}>
-                  <EndMessage />
                 </Grid>
               </Grid>
-            </Grid>
+              <Grid item xs={12} md={4}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    {/* <RecentTransactions /> */}
+                  </Grid>
+                  <Grid item xs={12}>
+                    <GroupExpenseChart />
+                  </Grid>
+                  <Grid item md={12} xs={0}>
+                    <EndMessage />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </>
           )}
         </Grid>
       )}

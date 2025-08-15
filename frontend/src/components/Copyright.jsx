@@ -9,7 +9,7 @@ export default function Copyright() {
       align="center"
       sx={{ color: 'text.secondary' }}
     >
-      &copy; Sunny George | Open Source &nbsp;
+      &copy; 9bit-Jedi | Open Source &nbsp;
       <FavoriteIcon
         color="error"
         sx={{ fontSize: 18, mb: '-2px', ml: '-5px' }}
@@ -18,7 +18,7 @@ export default function Copyright() {
       <Link
         variant="subtitle3"
         component={'a'}
-        href="https://github.com/tuzup/SplitApp/"
+        href="https://github.com/9bit-Jedi/SplitBuddy/"
         target="_blank"
       >
         [GitHub]

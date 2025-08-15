@@ -162,8 +162,10 @@ export default function GroupCards({
             <b>
               {' '}
               {share < 0 ? <>You owe</> : <>You are owed</>} : &nbsp;
-              {currencyFind(currencyType)}{' '}
-              {convertToCurrency(Math.abs(Math.floor(share)))}
+              {currencyType && currencyFind(currencyType) || '$'}{' '}
+              {typeof share === 'number' ? 
+                convertToCurrency(Math.abs(Math.floor(share))) : 
+                '0.00'}
             </b>
           </Typography>
         </Stack>

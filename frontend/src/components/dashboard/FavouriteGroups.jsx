@@ -50,8 +50,8 @@ const FavouriteGroups = () => {
                   >
                     <MiniGroupCard
                       title={myGroup?.name}
-                      share={myGroup?.user_balance}
-                      currencyType={myGroup?.currency}
+                      share={myGroup?.user_balance.amount}
+                      currencyType={myGroup?.user_balance.currency}
                       color="info"
                     />
                   </Link>
