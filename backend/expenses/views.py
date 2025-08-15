@@ -1,4 +1,4 @@
-from collections import defaultdict
+# from collections import defaultdict
 from datetime import date, timedelta
 from decimal import Decimal, InvalidOperation
 
@@ -16,7 +16,6 @@ from rest_framework.views import APIView
 
 from .models import Expense, ExpenseSplit
 from .serializers import ExpenseDetailSerializer, ExpenseSerializer
-from .utils import convert_dict_to_money
 
 
 class UserMonthlyExpenseView(APIView):
@@ -104,7 +103,10 @@ class UserDailyExpenseView(APIView):
             expense_date = item["day"].date()
             response_data.append(
                 {
-                    "_id": {"month": expense_date.month, "date": expense_date.day},
+                    "_id": {
+                        "month": expense_date.month,
+                        "date": expense_date.day,
+                    },
                     "amount": item["total"],
                 }
             )
@@ -198,10 +200,11 @@ class GroupSettlementCreateView(APIView):
         max_payable = min(-balances[payer_id], balances[payee_id])
         if amount > max_payable:
             return Response(
-                {"detail": f"Amount exceeds permissible ({max_payable})"}, status=400
+                {"detail": f"Amount exceeds permissible ({max_payable})"},
+                status=400,
             )
 
-        # Represent settlement as a zero-amount expense with two splits (negative / positive)
+        # Represent settlement as a zero-amount expense
         settlement = Expense.objects.create(
             group=group,
             description="Settlement payment",
@@ -220,7 +223,10 @@ class GroupSettlementCreateView(APIView):
         cache.delete(f"group:{group.id}:balances")
 
         return Response(
-            {"detail": "Settlement recorded", "settlement_expense_id": settlement.id},
+            {
+                "detail": "Settlement recorded",
+                "settlement_expense_id": settlement.id,
+            },
             status=201,
         )
 
@@ -231,8 +237,6 @@ def _compute_group_net_balances(group):
     net > 0 => user is owed money (creditor)
     net < 0 => user owes money (debtor)
     """
-    # Use a single query with annotations to calculate balances for all members
-    # Coalesce is used to handle cases where a user might have paid but not owed, or vice-versa (defaults the Sum to 0)
     balances_data = group.members.annotate(
         total_paid=Coalesce(
             Sum("expenses_paid__amount", filter=F("expenses_paid__group") == group),
@@ -249,7 +253,6 @@ def _compute_group_net_balances(group):
         ),
     ).annotate(net_balance=F("total_paid") - F("total_owed"))
 
-    # Create the final dictionary in the required format
     balances = {str(member.id): member.net_balance for member in balances_data}
 
     return balances

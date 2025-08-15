@@ -1,5 +1,3 @@
-from decimal import Decimal, InvalidOperation
-
 from django.db import transaction
 from djmoney.money import Money
 from rest_framework import serializers
@@ -85,7 +83,9 @@ class ExpenseSerializer(serializers.ModelSerializer):
                 amount_per_member = expense.amount / len(members)
                 for member in members:
                     ExpenseSplit.objects.create(
-                        expense=expense, user=member, amount_owed=amount_per_member
+                        expense=expense,
+                        user=member,
+                        amount_owed=amount_per_member,
                     )
         else:
             for split_data in splits_data:

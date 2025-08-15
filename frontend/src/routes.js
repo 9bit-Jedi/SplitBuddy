@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -16,6 +17,10 @@ function ProtectedRoute({ children }) {
     return React.createElement(Navigate, { to: '/login', replace: true });
   return children;
 }
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default function AppRoutes() {
   return React.createElement(
