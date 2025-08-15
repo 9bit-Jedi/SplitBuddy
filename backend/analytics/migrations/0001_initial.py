@@ -10,18 +10,36 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('groups', '0001_initial'),
+        ("groups", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Budget',
+            name="Budget",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('total_budget', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('spent_amount', models.DecimalField(decimal_places=2, default=0, max_digits=10)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
-                ('group', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='budgets', to='groups.group')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("total_budget", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "spent_amount",
+                    models.DecimalField(decimal_places=2, default=0, max_digits=10),
+                ),
+                ("created_at", models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "group",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="budgets",
+                        to="groups.group",
+                    ),
+                ),
             ],
         ),
     ]

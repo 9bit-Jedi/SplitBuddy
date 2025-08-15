@@ -35,7 +35,9 @@ export const RemoveMember = () => {
       // You might want to refresh the group details here
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to remove member');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to remove member',
+      );
     }
   };
 
@@ -65,7 +67,11 @@ export const RemoveMember = () => {
           </Grid>
         </form>
       </CardContent>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
     </Card>
   );
 };

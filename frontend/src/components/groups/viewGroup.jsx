@@ -32,7 +32,9 @@ export const ViewGroup = () => {
       setGroup(response.data);
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to fetch group details');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to fetch group details',
+      );
     } finally {
       setLoading(false);
     }
@@ -48,7 +50,11 @@ export const ViewGroup = () => {
 
   return (
     <>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
       {group && (
         <Grid container spacing={3}>
           <Grid item lg={8} md={6} xs={12}>

@@ -15,12 +15,18 @@ export const getUserGroupsService = async (setAlert, setAlertMessage) => {
     return response.data;
   } catch (error) {
     setAlert(true);
-    setAlertMessage(error.response?.data?.message || 'Failed to fetch user groups');
+    setAlertMessage(
+      error.response?.data?.message || 'Failed to fetch user groups',
+    );
     window.scroll(0, 0);
   }
 };
 
-export const createGroupService = async (formData, setAlert, setAlertMessage) => {
+export const createGroupService = async (
+  formData,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await createGroup(formData);
     return response.data;
@@ -31,18 +37,29 @@ export const createGroupService = async (formData, setAlert, setAlertMessage) =>
   }
 };
 
-export const getGroupDetailsService = async (groupId, setAlert, setAlertMessage) => {
+export const getGroupDetailsService = async (
+  groupId,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await getGroupDetails(groupId);
     return response.data;
   } catch (error) {
     setAlert(true);
-    setAlertMessage(error.response?.data?.message || 'Failed to fetch group details');
+    setAlertMessage(
+      error.response?.data?.message || 'Failed to fetch group details',
+    );
     window.scroll(0, 0);
   }
 };
 
-export const addGroupMemberService = async (groupId, memberData, setAlert, setAlertMessage) => {
+export const addGroupMemberService = async (
+  groupId,
+  memberData,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await addGroupMember(groupId, memberData);
     return response.data;
@@ -53,7 +70,12 @@ export const addGroupMemberService = async (groupId, memberData, setAlert, setAl
   }
 };
 
-export const updateGroupMemberService = async (groupId, memberData, setAlert, setAlertMessage) => {
+export const updateGroupMemberService = async (
+  groupId,
+  memberData,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await updateGroupMember(groupId, memberData);
     return response.data;
@@ -64,7 +86,12 @@ export const updateGroupMemberService = async (groupId, memberData, setAlert, se
   }
 };
 
-export const removeGroupMemberService = async (groupId, memberData, setAlert, setAlertMessage) => {
+export const removeGroupMemberService = async (
+  groupId,
+  memberData,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await removeGroupMember(groupId, memberData);
     return response.data;
@@ -75,24 +102,37 @@ export const removeGroupMemberService = async (groupId, memberData, setAlert, se
   }
 };
 
-export const getSimplifiedDebtsService = async (groupId, setAlert, setAlertMessage) => {
+export const getSimplifiedDebtsService = async (
+  groupId,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await getSimplifiedDebts(groupId);
     return response.data;
   } catch (error) {
     setAlert(true);
-    setAlertMessage(error.response?.data?.message || 'Failed to simplify debts');
+    setAlertMessage(
+      error.response?.data?.message || 'Failed to simplify debts',
+    );
     window.scroll(0, 0);
   }
 };
 
-export const createSettlementService = async (groupId, settlementData, setAlert, setAlertMessage) => {
+export const createSettlementService = async (
+  groupId,
+  settlementData,
+  setAlert,
+  setAlertMessage,
+) => {
   try {
     const response = await createSettlement(groupId, settlementData);
     return response.data;
   } catch (error) {
     setAlert(true);
-    setAlertMessage(error.response?.data?.message || 'Failed to create settlement');
+    setAlertMessage(
+      error.response?.data?.message || 'Failed to create settlement',
+    );
     window.scroll(0, 0);
   }
 };

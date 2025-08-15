@@ -13,7 +13,9 @@ export const SettleExpense = ({ expenseId }) => {
       // You might want to refresh the expense details here
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to settle expense');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to settle expense',
+      );
     }
   };
 
@@ -22,7 +24,11 @@ export const SettleExpense = ({ expenseId }) => {
       <Button color="primary" variant="contained" onClick={handleSettleExpense}>
         Settle Expense
       </Button>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
     </>
   );
 };

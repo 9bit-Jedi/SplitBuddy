@@ -40,14 +40,20 @@ export const CreateExpense = () => {
   useEffect(() => {
     const fetchGroupMembers = async () => {
       try {
-        const groupDetails = await getGroupDetailsService(groupId, setAlert, setAlertMessage);
+        const groupDetails = await getGroupDetailsService(
+          groupId,
+          setAlert,
+          setAlertMessage,
+        );
         if (groupDetails && groupDetails.members) {
           setGroupMembers(groupDetails.members);
           const currentUser = JSON.parse(localStorage.getItem('profile'));
           // Find the current user in the members list to set as default payer
-          const currentUserInGroup = groupDetails.members.find(member => member.username === currentUser.user.username);
+          const currentUserInGroup = groupDetails.members.find(
+            (member) => member.username === currentUser.user.username,
+          );
           if (currentUserInGroup) {
-            setValues(v => ({ ...v, paid_by: currentUserInGroup.id }));
+            setValues((v) => ({ ...v, paid_by: currentUserInGroup.id }));
           }
         }
       } catch (error) {
@@ -71,7 +77,9 @@ export const CreateExpense = () => {
       navigate(`${configData.VIEW_GROUP_URL}${groupId}`);
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to create expense');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to create expense',
+      );
     }
   };
 
@@ -171,7 +179,11 @@ export const CreateExpense = () => {
           </Grid>
         </form>
       </CardContent>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
     </Card>
   );
 };

@@ -36,7 +36,9 @@ export const CreateSettlement = () => {
       // You might want to refresh the group details here
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to create settlement');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to create settlement',
+      );
     }
   };
 
@@ -77,7 +79,11 @@ export const CreateSettlement = () => {
           </Grid>
         </form>
       </CardContent>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
     </Card>
   );
 };

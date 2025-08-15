@@ -65,7 +65,11 @@ export const AddMember = () => {
           </Grid>
         </form>
       </CardContent>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
     </Card>
   );
 };

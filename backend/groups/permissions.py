@@ -1,5 +1,7 @@
-from rest_framework.permissions import BasePermission, SAFE_METHODS
+from rest_framework.permissions import SAFE_METHODS, BasePermission
+
 from .models import Group
+
 
 class IsGroupAdmin(BasePermission):
     """
@@ -14,17 +16,15 @@ class IsGroupAdmin(BasePermission):
 
         # Resolve group id from typical locations.
         group_id = (
-            view.kwargs.get('pk')
-            or view.kwargs.get('group_id')
-            or request.data.get('group')
-            or request.query_params.get('group')
+            view.kwargs.get("pk")
+            or view.kwargs.get("group_id")
+            or request.data.get("group")
+            or request.query_params.get("group")
         )
         if not group_id:
             return False
 
         # Efficient existence check: user must be membership with role=admin.
         return Group.objects.filter(
-            id=group_id,
-            membership_set__user=request.user,
-            membership_set__role='admin'
+            id=group_id, membership_set__user=request.user, membership_set__role="admin"
         ).exists()

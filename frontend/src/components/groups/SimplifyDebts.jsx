@@ -26,7 +26,9 @@ export const SimplifyDebts = () => {
       setPayments(response.data.payments);
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to fetch simplified debts');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to fetch simplified debts',
+      );
     } finally {
       setLoading(false);
     }
@@ -45,7 +47,11 @@ export const SimplifyDebts = () => {
       <CardHeader title="Simplified Debts" />
       <Divider />
       <CardContent>
-        <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+        <AlertBanner
+          showAlert={alert}
+          alertMessage={alertMessage}
+          severity="error"
+        />
         {payments.length > 0 ? (
           payments.map((payment, index) => (
             <Typography key={index}>

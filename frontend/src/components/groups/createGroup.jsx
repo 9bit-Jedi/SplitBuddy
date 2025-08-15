@@ -38,14 +38,19 @@ export const CreateGroup = () => {
       navigate(configData.USER_GROUPS_URL);
     } catch (error) {
       setAlert(true);
-      setAlertMessage(error.response?.data?.message || 'Failed to create group');
+      setAlertMessage(
+        error.response?.data?.message || 'Failed to create group',
+      );
     }
   };
 
   return (
     <form autoComplete="off" noValidate onSubmit={handleSubmit}>
       <Card>
-        <CardHeader subheader="Create a new group to start sharing expenses" title="Create Group" />
+        <CardHeader
+          subheader="Create a new group to start sharing expenses"
+          title="Create Group"
+        />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>
@@ -85,7 +90,11 @@ export const CreateGroup = () => {
           </Button>
         </Box>
       </Card>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
     </form>
   );
 };

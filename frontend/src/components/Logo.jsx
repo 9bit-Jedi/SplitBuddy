@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { Box } from '@mui/material';
-import configData from '../config.json'
+import configData from '../config.json';
 
 // ----------------------------------------------------------------------
 
@@ -12,7 +12,6 @@ Logo.propTypes = {
 };
 
 export default function Logo({ disabledLink = false, sx }) {
- 
   // OR
   // const logo = <Box component="img" src="/static/logo.svg" sx={{ width: 40, height: 40, ...sx }} />
 
@@ -49,7 +48,7 @@ export default function Logo({ disabledLink = false, sx }) {
           />
         </g>
       </svg> */}
-      <img src = "/static/logo.png"/>
+      <img src="/static/logo.png" />
     </Box>
   );
 

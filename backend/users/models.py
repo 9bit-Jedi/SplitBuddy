@@ -1,13 +1,16 @@
+import hashlib
 import uuid
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.db import models
 from django.utils import timezone
-import hashlib
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username, password=None, **extra_fields):
         if not email:
-            raise ValueError('Email is required')
+            raise ValueError("Email is required")
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
@@ -16,9 +19,10 @@ class UserManager(BaseUserManager):
         return user
 
     def create_superuser(self, email, username, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, username, password, **extra_fields)
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -32,13 +36,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["username"]
 
     def save(self, *args, **kwargs):
         if not self.profile_image_url:
-            gravatar_hash = hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
-            self.profile_image_url = f"https://www.gravatar.com/avatar/{gravatar_hash}?d=identicon"
+            gravatar_hash = hashlib.md5(self.email.lower().encode("utf-8")).hexdigest()
+            self.profile_image_url = (
+                f"https://www.gravatar.com/avatar/{gravatar_hash}?d=identicon"
+            )
         super().save(*args, **kwargs)
 
     def __str__(self):

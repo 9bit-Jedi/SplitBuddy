@@ -1,18 +1,28 @@
 // @mui
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
-import { Card, CardContent, Typography, Box, AvatarGroup, Avatar, Stack, Grid } from '@mui/material';
-import { convertToCurrency, currencyFind, categoryIcon } from '../../utils/helper';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  AvatarGroup,
+  Avatar,
+  Stack,
+  Grid,
+} from '@mui/material';
+import {
+  convertToCurrency,
+  currencyFind,
+  categoryIcon,
+} from '../../utils/helper';
 // utils
 // components
 import Iconify from '../Iconify';
 import gravatarUrl from 'gravatar-url';
-import configData from '../../config.json'
-
+import configData from '../../config.json';
 
 // ----------------------------------------------------------------------
-
-
 
 // ----------------------------------------------------------------------
 
@@ -23,10 +33,9 @@ const CategoryStyle = styled('div')(({ theme }) => ({
   position: 'absolute',
   left: 22,
   top: 130,
-  background: "red",
-  borderRadius: 50
+  background: 'red',
+  borderRadius: 50,
 }));
-
 
 GroupCards.propTypes = {
   color: PropTypes.string,
@@ -41,7 +50,19 @@ GroupCards.propTypes = {
   sx: PropTypes.object,
 };
 
-export default function GroupCards({ title, description, groupMembers, share, currencyType, groupCategory, isGroupActive, icon, color = 'primary', sx, ...other }) {
+export default function GroupCards({
+  title,
+  description,
+  groupMembers,
+  share,
+  currencyType,
+  groupCategory,
+  isGroupActive,
+  icon,
+  color = 'primary',
+  sx,
+  ...other
+}) {
   return (
     <Card
       sx={{
@@ -53,7 +74,6 @@ export default function GroupCards({ title, description, groupMembers, share, cu
       }}
       {...other}
     >
-
       <Box
         component="span"
         sx={{
@@ -66,86 +86,121 @@ export default function GroupCards({ title, description, groupMembers, share, cu
           zIndex: 9,
           top: 125,
           position: 'absolute',
-          color: 'background.paper'
+          color: 'background.paper',
         }}
       />
       <CategoryStyle
         sx={{
           bgcolor: (theme) => theme.palette[color].lighter,
           py: '6px',
-          px: '9px'
+          px: '9px',
         }}
       >
-        <Iconify icon={categoryIcon(groupCategory)} color={(theme) => theme.palette[color].darker}
+        <Iconify
+          icon={categoryIcon(groupCategory)}
+          color={(theme) => theme.palette[color].darker}
         />
       </CategoryStyle>
 
-      <Box pt={6} px={2} pb={3}
+      <Box
+        pt={6}
+        px={2}
+        pb={3}
         sx={{
           bgcolor: (theme) => theme.palette[color].lighter,
-          color: (theme) => theme.palette[color].darker
+          color: (theme) => theme.palette[color].darker,
         }}
       >
         <Typography noWrap variant="h3" fontSize={30} sx={{ opacity: 0.72 }}>
           {title}
         </Typography>
-        <Typography noWrap variant="subtitle2" fontSize={14} color={'text.secondary'}>
-          {description} &nbsp;</Typography>
+        <Typography
+          noWrap
+          variant="subtitle2"
+          fontSize={14}
+          color={'text.secondary'}
+        >
+          {description} &nbsp;
+        </Typography>
       </Box>
       <CardContent
         sx={{
           pt: 3,
-          px: 1
+          px: 1,
         }}
-
       >
         <Stack direction="row" spacing={2} p={1} mt={1}>
-          <Typography sx={{
-            bgcolor: isGroupActive ? (theme) => theme.palette['error'].lighter : (theme) => theme.palette['success'].lighter,
-            p: 1,
-            borderRadius: 1,
-            color: isGroupActive ? (theme) => theme.palette['error'].darker : (theme) => theme.palette['success'].darker
-          }}>
-            {isGroupActive ? (<b>Not Settled</b>) : (<b>Settled</b>)}
+          <Typography
+            sx={{
+              bgcolor: isGroupActive
+                ? (theme) => theme.palette['error'].lighter
+                : (theme) => theme.palette['success'].lighter,
+              p: 1,
+              borderRadius: 1,
+              color: isGroupActive
+                ? (theme) => theme.palette['error'].darker
+                : (theme) => theme.palette['success'].darker,
+            }}
+          >
+            {isGroupActive ? <b>Not Settled</b> : <b>Settled</b>}
           </Typography>
 
-          <Typography sx={{
-            bgcolor: share < 0 ? (theme) => theme.palette['error'].lighter : (theme) => theme.palette['success'].lighter,
-            p: 1,
-            borderRadius: 1,
-            color: share < 0 ? (theme) => theme.palette['error'].darker : (theme) => theme.palette['success'].darker
-          }}>
-            <b> {share < 0? <>You owe</> : <>You are owed</>} : &nbsp;
-              {currencyFind(currencyType)} {convertToCurrency(Math.abs(Math.floor(share)))}</b>
+          <Typography
+            sx={{
+              bgcolor:
+                share < 0
+                  ? (theme) => theme.palette['error'].lighter
+                  : (theme) => theme.palette['success'].lighter,
+              p: 1,
+              borderRadius: 1,
+              color:
+                share < 0
+                  ? (theme) => theme.palette['error'].darker
+                  : (theme) => theme.palette['success'].darker,
+            }}
+          >
+            <b>
+              {' '}
+              {share < 0 ? <>You owe</> : <>You are owed</>} : &nbsp;
+              {currencyFind(currencyType)}{' '}
+              {convertToCurrency(Math.abs(Math.floor(share)))}
+            </b>
           </Typography>
         </Stack>
         <Grid container direction="row" spacing={1} p={1}>
           <Grid item md={6} xs={12}>
             <Stack direction="row" width={'100%'}>
               <Typography justifyContent={'center'} py={1} mr={1}>
-                Category {" "}
+                Category{' '}
               </Typography>
-              <Box sx={{
-                bgcolor: (theme) => theme.palette['warning'].lighter,
-                p: 1,
-                borderRadius: 1,
-                color: (theme) => theme.palette['warning'].darker,
-              }}>
+              <Box
+                sx={{
+                  bgcolor: (theme) => theme.palette['warning'].lighter,
+                  p: 1,
+                  borderRadius: 1,
+                  color: (theme) => theme.palette['warning'].darker,
+                }}
+              >
                 {groupCategory}
               </Box>
             </Stack>
           </Grid>
           <Grid item md={6} xs={12}>
             <AvatarGroup max={3} sx={{ width: '100%' }}>
-              {groupMembers.map(member => (
-                <Avatar key={member} alt={member.toUpperCase()} src={gravatarUrl(member, { size: 350 ,default: configData.USER_DEFAULT_LOGO_URL})} />
+              {groupMembers.map((member) => (
+                <Avatar
+                  key={member}
+                  alt={member.toUpperCase()}
+                  src={gravatarUrl(member, {
+                    size: 350,
+                    default: configData.USER_DEFAULT_LOGO_URL,
+                  })}
+                />
               ))}
             </AvatarGroup>
           </Grid>
         </Grid>
-
       </CardContent>
-
     </Card>
   );
 }

@@ -26,7 +26,9 @@ export const GroupExpenses = () => {
         setExpenses(response.data.expenses);
       } catch (error) {
         setAlert(true);
-        setAlertMessage(error.response?.data?.message || 'Failed to fetch group expenses');
+        setAlertMessage(
+          error.response?.data?.message || 'Failed to fetch group expenses',
+        );
       } finally {
         setLoading(false);
       }
@@ -43,7 +45,11 @@ export const GroupExpenses = () => {
       <CardHeader title="Group Expenses" />
       <Divider />
       <CardContent>
-        <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+        <AlertBanner
+          showAlert={alert}
+          alertMessage={alertMessage}
+          severity="error"
+        />
         {expenses.length > 0 ? (
           expenses.map((expense) => (
             <Box key={expense.id} mb={2}>

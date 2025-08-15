@@ -8,28 +8,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('groups', '0001_initial'),
+        ("groups", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='group',
-            name='budget',
-            field=models.DecimalField(blank=True, decimal_places=2, max_digits=12, null=True),
+            model_name="group",
+            name="budget",
+            field=models.DecimalField(
+                blank=True, decimal_places=2, max_digits=12, null=True
+            ),
         ),
         migrations.AddField(
-            model_name='group',
-            name='members',
-            field=models.ManyToManyField(blank=True, related_name='member_groups', through='groups.GroupMember', to=settings.AUTH_USER_MODEL),
+            model_name="group",
+            name="members",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="member_groups",
+                through="groups.GroupMember",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='groupmember',
-            name='group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='membership_set', to='groups.group'),
+            model_name="groupmember",
+            name="group",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="membership_set",
+                to="groups.group",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='groupmember',
-            unique_together={('user', 'group')},
+            name="groupmember",
+            unique_together={("user", "group")},
         ),
     ]

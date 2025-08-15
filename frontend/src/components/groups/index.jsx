@@ -30,14 +30,22 @@ export default function Group() {
       <Typography variant="h4" sx={{ mb: 5 }}>
         Your Groups
       </Typography>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
       {loading ? (
         <Loading />
       ) : (
         <Grid container spacing={3}>
           {groups.map((group) => (
             <Grid key={group.id} item xs={12} sm={6} md={4}>
-              <Link component={RouterLink} to={`${configData.VIEW_GROUP_URL}${group.id}`} sx={{ textDecoration: 'none' }}>
+              <Link
+                component={RouterLink}
+                to={`${configData.VIEW_GROUP_URL}${group.id}`}
+                sx={{ textDecoration: 'none' }}
+              >
                 <GroupCards
                   title={group.name}
                   description={group.description}

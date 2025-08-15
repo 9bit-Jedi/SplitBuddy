@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Expense, ExpenseSplit, Settlement
 
 # Register your models here.

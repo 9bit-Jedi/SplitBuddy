@@ -1,20 +1,35 @@
 from django.urls import path
-from .views import (
-    ExpenseCreateView,
-    ExpenseDetailView,
-    GroupExpenseListView,
-    ExpenseSettleView,
-    UserMonthlyExpenseView,
-    UserCategoryExpenseView,
-    UserDailyExpenseView,
-)
+
+from .views import (ExpenseCreateView, ExpenseDetailView, ExpenseSettleView,
+                    GroupExpenseListView, UserCategoryExpenseView,
+                    UserDailyExpenseView, UserMonthlyExpenseView)
 
 urlpatterns = [
-    path('', ExpenseCreateView.as_view(), name='expense-create'),                                     # POST /api/expenses/
-    path('user/monthly-expenses/', UserMonthlyExpenseView.as_view(), name='user-monthly-expenses'),
-    path('user/daily-expenses/', UserDailyExpenseView.as_view(), name='user-daily-expenses'),
-    path('user/category-expenses/', UserCategoryExpenseView.as_view(), name='user-category-expenses'),
-    path('<int:pk>/settle/', ExpenseSettleView.as_view(), name='expense-settle'),                   # POST settle
-    path('<int:pk>/', ExpenseDetailView.as_view(), name='expense-detail'),                          # GET expense detail
-    path('group/<int:group_id>/', GroupExpenseListView.as_view(), name='group-expense-list'),      # GET group expenses
+    path("", ExpenseCreateView.as_view(), name="expense-create"),  # POST /api/expenses/
+    path(
+        "user/monthly-expenses/",
+        UserMonthlyExpenseView.as_view(),
+        name="user-monthly-expenses",
+    ),
+    path(
+        "user/daily-expenses/",
+        UserDailyExpenseView.as_view(),
+        name="user-daily-expenses",
+    ),
+    path(
+        "user/category-expenses/",
+        UserCategoryExpenseView.as_view(),
+        name="user-category-expenses",
+    ),
+    path(
+        "<int:pk>/settle/", ExpenseSettleView.as_view(), name="expense-settle"
+    ),  # POST settle
+    path(
+        "<int:pk>/", ExpenseDetailView.as_view(), name="expense-detail"
+    ),  # GET expense detail
+    path(
+        "group/<int:group_id>/",
+        GroupExpenseListView.as_view(),
+        name="group-expense-list",
+    ),  # GET group expenses
 ]

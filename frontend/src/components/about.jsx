@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
-import { Box, Container } from "@mui/system";
-import Copyright from "./Copyright";
+import { Typography } from '@mui/material';
+import { Box, Container } from '@mui/system';
+import Copyright from './Copyright';
 
 const About = () => {
   return (
@@ -8,7 +8,7 @@ const About = () => {
       <Container
         maxWidth="md"
         sx={{
-          bgcolor: "background.paper",
+          bgcolor: 'background.paper',
           boxShadow: 2,
           my: 10,
           py: 10,
@@ -42,14 +42,12 @@ const About = () => {
           <img
             src="https://via.placeholder.com/600x400"
             alt="placeholder"
-            width={"80%"}
+            width={'80%'}
           />
         </center>
-        <Typography variant="h5">
-          Lorem Ipsum Dolor Sit Amet
-        </Typography>
+        <Typography variant="h5">Lorem Ipsum Dolor Sit Amet</Typography>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>
             <a href="#introduction">Introduction</a>
           </li>
@@ -58,7 +56,7 @@ const About = () => {
           </li>
           <li>
             <a href="#technologies-used">Technologies used</a>
-            <ul style={{ marginLeft: "40px" }}>
+            <ul style={{ marginLeft: '40px' }}>
               <li>
                 <a href="#frontend">Frontend</a>
               </li>
@@ -91,13 +89,13 @@ const About = () => {
           <img
             src="https://via.placeholder.com/600x400"
             alt="Features"
-            width={"80%"}
+            width={'80%'}
           />
         </center>
         <br />
         <h2 id="key-features">Key Features</h2>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>Lorem ipsum dolor sit amet.</li>
           <li>Consectetur adipiscing elit.</li>
           <li>Sed do eiusmod tempor incididunt.</li>
@@ -107,13 +105,11 @@ const About = () => {
         <br />
         <h2 id="technologies-used">Technologies used</h2>
         <br />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <br />
         <h4 id="frontend">Frontend</h4>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>Lorem Ipsum</li>
           <li>Dolor Sit Amet</li>
           <li>Consectetur Adipiscing</li>
@@ -125,7 +121,7 @@ const About = () => {
         <br />
         <h4 id="backend">Backend</h4>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>Lorem Ipsum</li>
           <li>Dolor Sit Amet</li>
           <li>Consectetur Adipiscing</li>
@@ -134,17 +130,15 @@ const About = () => {
         <br />
         <h4 id="database">Database</h4>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>Lorem Ipsum</li>
         </ul>
         <br />
         <h2 id="configuration-and-setup">Configuration and Setup</h2>
         <br />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>Lorem ipsum dolor sit amet.</li>
           <li>Consectetur adipiscing elit.</li>
           <li>Sed do eiusmod tempor incididunt.</li>
@@ -152,10 +146,8 @@ const About = () => {
         <br />
         <p>In the first terminal</p>
         <pre>
-          <Box
-            sx={{ bgcolor: "#f0f0f0", p: 4, my: 4, overflowY: "scroll" }}
-          >
-            <Typography sx={{ wordWrap: "break-word" }}>
+          <Box sx={{ bgcolor: '#f0f0f0', p: 4, my: 4, overflowY: 'scroll' }}>
+            <Typography sx={{ wordWrap: 'break-word' }}>
               <code>
                 cd client <br />
                 <br />
@@ -173,14 +165,12 @@ const About = () => {
 
         <p>For setting up backend</p>
         <br />
-        <ul style={{ marginLeft: "40px" }}>
+        <ul style={{ marginLeft: '40px' }}>
           <li>Lorem ipsum dolor sit amet.</li>
           <li>Consectetur adipiscing elit.</li>
         </ul>
         <pre>
-          <Box
-            sx={{ bgcolor: "#f0f0f0", p: 4, my: 4, overflowY: "scroll" }}
-          >
+          <Box sx={{ bgcolor: '#f0f0f0', p: 4, my: 4, overflowY: 'scroll' }}>
             <span>PORT</span>=<span>3001</span>
             <br />
             <span>MONGODB_URI</span>=
@@ -188,41 +178,36 @@ const About = () => {
             <span>ACCESS_TOKEN_SECRET</span>=
           </Box>
         </pre>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <br />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
-        <Box component="div" sx={{ bgcolor: "#f0f0f0", p: 4, my: 4 }}>
-          <Typography sx={{ wordWrap: "break-word" }}>
-            node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <Box component="div" sx={{ bgcolor: '#f0f0f0', p: 4, my: 4 }}>
+          <Typography sx={{ wordWrap: 'break-word' }}>
+            node -e
+            "console.log(require('crypto').randomBytes(256).toString('base64'));"
           </Typography>
         </Box>
-        <p>In the second terminal (*in the project root directory (back-end))</p>
+        <p>
+          In the second terminal (*in the project root directory (back-end))
+        </p>
         <pre>
-          <Box
-            sx={{ bgcolor: "#f0f0f0", p: 4, my: 4, overflowY: "scroll" }}
-          >
-            <Typography sx={{ wordWrap: "break-word" }}>
+          <Box sx={{ bgcolor: '#f0f0f0', p: 4, my: 4, overflowY: 'scroll' }}>
+            <Typography sx={{ wordWrap: 'break-word' }}>
               //to install server-side dependencies
             </Typography>
             npm <span>install</span> <br />
             <br />
-            <Typography sx={{ wordWrap: "break-word" }}>
+            <Typography sx={{ wordWrap: 'break-word' }}>
               //<span>to</span> <span>start</span> <span>server</span>
             </Typography>
-            <Typography sx={{ wordWrap: "break-word" }}>
-              npm <span>start</span>{" "}
+            <Typography sx={{ wordWrap: 'break-word' }}>
+              npm <span>start</span>{' '}
             </Typography>
           </Box>
         </pre>
         <h2 id="comment">Comment</h2>
         <br />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
         <br />
         <h2 id="license">License</h2>
         <br />
@@ -248,11 +233,11 @@ const About = () => {
         <p>
           THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
           EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-          MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-          NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-          LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-          OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-          WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+          MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+          IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+          CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+          TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+          SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         </p>
         <br />
         <Copyright />

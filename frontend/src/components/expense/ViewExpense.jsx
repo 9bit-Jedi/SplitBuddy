@@ -28,7 +28,9 @@ export const ViewExpense = () => {
         setExpense(response.data);
       } catch (error) {
         setAlert(true);
-        setAlertMessage(error.response?.data?.message || 'Failed to fetch expense details');
+        setAlertMessage(
+          error.response?.data?.message || 'Failed to fetch expense details',
+        );
       } finally {
         setLoading(false);
       }
@@ -42,7 +44,11 @@ export const ViewExpense = () => {
 
   return (
     <>
-      <AlertBanner showAlert={alert} alertMessage={alertMessage} severity="error" />
+      <AlertBanner
+        showAlert={alert}
+        alertMessage={alertMessage}
+        severity="error"
+      />
       {expense && (
         <Card>
           <CardHeader title={expense.description} />

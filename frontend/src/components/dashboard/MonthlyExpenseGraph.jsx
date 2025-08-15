@@ -1,15 +1,15 @@
-import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { getUserMonthlyExpService } from "../../services/expenseServices";
-import AlertBanner from "../AlertBanner";
-import Loading from "../loading";
-import { Bar } from "react-chartjs-2";
-import "chart.js/auto";
-import { convertToCurrency } from "../../utils/helper";
+import { Box, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { getUserMonthlyExpService } from '../../services/expenseServices';
+import AlertBanner from '../AlertBanner';
+import Loading from '../loading';
+import { Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
+import { convertToCurrency } from '../../utils/helper';
 
 export const MonthlyExpenseGraph = () => {
   const [alert, setAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [monthlyExp, setMonthlyExp] = useState([]);
 
@@ -17,10 +17,10 @@ export const MonthlyExpenseGraph = () => {
     labels: monthlyExp?.map((item) => item.month),
     datasets: [
       {
-        label: "Monthly Expenses",
+        label: 'Monthly Expenses',
         data: monthlyExp?.map((item) => item.total),
-        backgroundColor: "rgba(54, 162, 235, 0.7)",
-        borderColor: "rgba(54, 162, 235, 1)",
+        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+        borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
       },
     ],
@@ -34,7 +34,7 @@ export const MonthlyExpenseGraph = () => {
       },
       legend: {
         display: true,
-        position: "top",
+        position: 'top',
       },
     },
     scales: {
@@ -53,7 +53,7 @@ export const MonthlyExpenseGraph = () => {
       setLoading(true);
       const monthly_exp = await getUserMonthlyExpService(
         setAlert,
-        setAlertMessage
+        setAlertMessage,
       );
       setMonthlyExp(monthly_exp);
       setLoading(false);
@@ -69,7 +69,7 @@ export const MonthlyExpenseGraph = () => {
         <Box
           sx={{
             p: 5,
-            bgcolor: "background.paper",
+            bgcolor: 'background.paper',
             borderRadius: 2,
             boxShadow: 5,
           }}

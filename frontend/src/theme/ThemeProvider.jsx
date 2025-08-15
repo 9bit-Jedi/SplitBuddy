@@ -1,7 +1,10 @@
-
 import { createContext, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { createTheme, ThemeProvider as MUIThemeProvider, StyledEngineProvider } from '@mui/material/styles';
+import {
+  createTheme,
+  ThemeProvider as MUIThemeProvider,
+  StyledEngineProvider,
+} from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import lightPalette from './palette';
 import darkPalette from './darkPalette';
@@ -28,7 +31,7 @@ export default function ThemeProvider({ children }) {
       shadows,
       customShadows,
     }),
-    [themeMode]
+    [themeMode],
   );
 
   const theme = createTheme(themeOptions);
