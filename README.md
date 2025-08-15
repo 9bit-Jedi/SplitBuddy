@@ -88,9 +88,10 @@ Whether it’s a trip with friends, monthly rent sharing, or managing club finan
 ## 🔧 Development Setup
 
 ### **Backend**
-
 ```bash
 cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
