@@ -1,4 +1,4 @@
-import { login, register, getCurrentUser, updateCurrentUser } from '../api';
+import { login, register, getCurrentUser, updateCurrentUser, updatePassword } from '../api';
 
 export const loginService = async (formData, setAlert, setAlertMessage) => {
   try {
@@ -53,6 +53,30 @@ export const updateUserService = async (
   } catch (error) {
     setAlert(true);
     setAlertMessage(error.response?.data?.message || 'Failed to update user');
+    window.scroll(0, 0);
+  }
+};
+
+export const updatePasswordService = async (formData, setAlert, setAlertMessage) => {
+  try {
+    const response = await updatePassword(formData);
+    return response;
+  } catch (error) {
+    setAlert(true);
+    setAlertMessage(error.response?.data?.message || 'Failed to update password');
+    window.scroll(0, 0);
+  }
+};
+
+export const deleteUserService = async (setAlert, setAlertMessage) => {
+  const profile = JSON.parse(localStorage.getItem('profile'));
+  try {
+    const response = await deleteUser(profile);
+    localStorage.removeItem('profile');
+    return response;
+  } catch (error) {
+    setAlert(true);
+    setAlertMessage(error.response?.data?.message || 'Failed to delete user');
     window.scroll(0, 0);
   }
 };

@@ -10,7 +10,7 @@ import { MonthlyExpenseGraph } from './MonthlyExpenseGraph';
 import { EndMessage } from './endMessage';
 import { GroupExpenseChart } from './GroupExpenseChart';
 import { RecentTransactions } from './RecentTransactions';
-// import { SummaryCards } from "./summaryCards"
+import { SummaryCards } from './summaryCards';
 import { WelcomeMessage } from './welcomeMessage';
 import { Link as RouterLink } from 'react-router-dom';
 import configData from '../../config.json';
@@ -92,9 +92,9 @@ export default function Dashboard() {
                 </Grid>
               ) : (
                 <>
-                  {/* <Grid item xs={12}>
-                                        <SummaryCards userTotalExp={userExp?.total} />
-                                    </Grid> */}
+                  <Grid item xs={12}>
+                    <SummaryCards userTotalExp={userExp?.total} />
+                  </Grid>
                   <Grid item xs={12}>
                     <FavouriteGroups />
                   </Grid>

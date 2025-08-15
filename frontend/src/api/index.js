@@ -38,6 +38,8 @@ export const refreshToken = (formData) =>
   API.post('/users/token/refresh/', formData);
 export const getCurrentUser = () => API.get('/users/me/');
 export const updateCurrentUser = (formData) => API.put('/users/me/', formData);
+export const updatePassword = (formData) => API.put('/users/me/password/', formData);
+export const deleteUser = (formData) => API.delete('/api/users/delete', {headers:accessHeader.headers,data:formData})
 
 // Group endpoints
 export const getUserGroups = () => API.get('/groups/');
